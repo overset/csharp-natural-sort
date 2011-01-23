@@ -11,17 +11,27 @@ namespace com.overset {
 		private string sortColumn;
 		private Regex tokenize = new Regex(@"[a-zA-Z]+|[0-9\.-]+", RegexOptions.Compiled);
 
+		public NaturalSort () {
+			sortColumn = null;
+		}
 		public NaturalSort (string newSortColumn) {
 			sortColumn = newSortColumn;
 		}
 
 		public int Compare (object x, object y) {
 			
-			// get the values as strings from the column we want to sort by
-			string a = (x as Dictionary<string, object>)[sortColumn].ToString();
-			string b = (y as Dictionary<string, object>)[sortColumn].ToString();
+			string a, b;
 			decimal decA, decB;
 			DateTime dtA, dtB;
+			
+			// get the values as strings from the column we want to sort by
+			if (sortColumn != null) {
+				a = (x as Dictionary<string, object>)[sortColumn].ToString();
+				b = (y as Dictionary<string, object>)[sortColumn].ToString();
+			} else {
+				a = x.ToString();
+				b = y.ToString();
+			}
 			
 			// tokenize and sort only if both values are not numeric or valid dates
 			if (!decimal.TryParse(a, out decA) &&
