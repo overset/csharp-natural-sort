@@ -1,4 +1,4 @@
-// csc.exe /r:NaturalSort.dll /o:testsort.exe testsort.cs
+// csc.exe /r:NaturalSort.dll /out:testsort.exe testsort.cs
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;

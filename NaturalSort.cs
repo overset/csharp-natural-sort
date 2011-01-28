@@ -60,11 +60,10 @@ namespace com.overset {
 		
 		public int CompareToken (string a, string b) {
 			
-			// attempt numeric comparison assuming decimal
 			decimal decA, decB;
-			// decimal will take precedence if values are different types 
 			bool bDecA = decimal.TryParse(a, out decA), bDecB = decimal.TryParse(b, out decB);
-			if (bDecA || bDecB) {
+			// attempt numeric comparison assuming decimal < * - ignore left 0-padded numerics
+			if ((bDecA || bDecB) && a[0] != '0' && b[0] != '0') {
 				if ((bDecA && !bDecB) || (bDecA && bDecB && decA < decB))
 					return -1;
 				else if ((!bDecA && bDecB) || (bDecA && bDecB && decA > decB))
